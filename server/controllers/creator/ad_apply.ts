@@ -2,6 +2,7 @@ import {Request} from "express";
 import { c_token_assoc_values } from "../token/token_controller";
 import { BRAND } from "../../user.types";
 import { apply_to_ad } from "../../apps/creator_apis/apply_to_ad";
+import { prisma_client } from "../../base_imports";
 
 export const c_creator_ad_apply_sequence = async (req: Request) => {
     if (req.headers.authorization && req.headers.authorization.length > 10) { 
@@ -32,6 +33,13 @@ export const c_creator_ad_apply_sequence = async (req: Request) => {
 
         // Extracting ids
         let advert_id: number = req.body.advert_id;
+        let count_advert = await prisma_client.adverts.count();
+        if (advert_id > count_advert) {
+            return {
+                status: 401,
+                message: "ad does not exist"
+            }
+        }
         
         // @ts-ignore
         let creator_id: number = token_assoc_status?.id_creator;

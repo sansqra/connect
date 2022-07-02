@@ -13,6 +13,7 @@ exports.c_creator_ad_apply_sequence = void 0;
 const token_controller_1 = require("../token/token_controller");
 const user_types_1 = require("../../user.types");
 const apply_to_ad_1 = require("../../apps/creator_apis/apply_to_ad");
+const base_imports_1 = require("../../base_imports");
 const c_creator_ad_apply_sequence = (req) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     if (req.headers.authorization && req.headers.authorization.length > 10) {
@@ -38,6 +39,13 @@ const c_creator_ad_apply_sequence = (req) => __awaiter(void 0, void 0, void 0, f
         }
         // Extracting ids
         let advert_id = req.body.advert_id;
+        let count_advert = yield base_imports_1.prisma_client.adverts.count();
+        if (advert_id > count_advert) {
+            return {
+                status: 401,
+                message: "ad does not exist"
+            };
+        }
         // @ts-ignore
         let creator_id = token_assoc_status === null || token_assoc_status === void 0 ? void 0 : token_assoc_status.id_creator;
         // Submitting application
