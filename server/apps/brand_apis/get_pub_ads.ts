@@ -1,5 +1,4 @@
 import { prisma_client } from "../../base_imports";
-import { not_null } from "../token/index.types";
 
 export const get_published_ads = async (brand_id: number) => {
     let get_published_ads_resp = await 
@@ -13,14 +12,14 @@ export const get_published_ads = async (brand_id: number) => {
        get_published_ads_resp === undefined) 
     {
         return {
-            status: "null",
+            status: 400,
             "message": "Brand has not published any ads"
         }
     }
 
     return {
-        status: not_null,
+        status: 200,
         message: "brand has published ads",
-        ads: get_published_ads_resp
+        ads_list: get_published_ads_resp
     }
 }

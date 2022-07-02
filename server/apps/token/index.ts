@@ -1,6 +1,6 @@
 import { prisma_client } from "../../base_imports";
 import crypto from "crypto";
-import { BRAND, CREATOR } from "../../controllers/user.types";
+import { BRAND, CREATOR } from "../../user.types";
 
 // Search for token to prevent calling the Auth APIs
 export const token_search = async (token_value: string) => {

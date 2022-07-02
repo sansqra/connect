@@ -29,7 +29,7 @@ const brand_login = (email, password, user_type) => __awaiter(void 0, void 0, vo
     });
     // Creating token if brand account exists
     if (brand_find_result === null)
-        return { status: null, message: "brand account does not exist" };
+        return { status: 400, message: "brand account does not exist" };
     return (0, token_1.create_token)(brand_find_result === null || brand_find_result === void 0 ? void 0 : brand_find_result.brand_id, user_type, email, password);
 });
 const creator_login = (email, password, user_type) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,6 +41,6 @@ const creator_login = (email, password, user_type) => __awaiter(void 0, void 0, 
     });
     // Creating token if creator account exists
     if (creator_find_result === null)
-        return { status: null, message: "creator account does not exist" };
+        return { status: 400, message: "creator account does not exist" };
     return (0, token_1.create_token)(creator_find_result === null || creator_find_result === void 0 ? void 0 : creator_find_result.creator_id, user_type, email, password);
 });

@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.c_login_with_creator = void 0;
 const login_1 = require("../../../apps/auth/login");
-const user_types_1 = require("../../user.types");
+const user_types_1 = require("../../../user.types");
 const c_login_with_creator = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
     let login_with_creator_response = yield (0, login_1.login)(email, password, user_types_1.CREATOR);
     return login_with_creator_response;

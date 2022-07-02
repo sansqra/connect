@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.get_published_ads = void 0;
 const base_imports_1 = require("../../base_imports");
-const index_types_1 = require("../token/index.types");
 const get_published_ads = (brand_id) => __awaiter(void 0, void 0, void 0, function* () {
     let get_published_ads_resp = yield base_imports_1.prisma_client.adverts.findMany({
         where: {
@@ -21,14 +20,14 @@ const get_published_ads = (brand_id) => __awaiter(void 0, void 0, void 0, functi
     if (get_published_ads_resp === null ||
         get_published_ads_resp === undefined) {
         return {
-            status: "null",
+            status: 400,
             "message": "Brand has not published any ads"
         };
     }
     return {
-        status: index_types_1.not_null,
+        status: 200,
         message: "brand has published ads",
-        ads: get_published_ads_resp
+        ads_list: get_published_ads_resp
     };
 });
 exports.get_published_ads = get_published_ads;

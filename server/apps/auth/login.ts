@@ -21,7 +21,7 @@ const brand_login =
     });
 
     // Creating token if brand account exists
-    if (brand_find_result === null) return  { status: null, message: "brand account does not exist" }
+    if (brand_find_result === null) return  { status: 400, message: "brand account does not exist" }
     return create_token(brand_find_result?.brand_id!, user_type, email, password);
 }
 
@@ -36,6 +36,6 @@ const creator_login =
     });
 
     // Creating token if creator account exists
-    if (creator_find_result === null) return  { status: null, message: "creator account does not exist" }
+    if (creator_find_result === null) return  { status: 400, message: "creator account does not exist" }
     return create_token(creator_find_result?.creator_id!, user_type, email, password);
 }

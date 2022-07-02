@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": "1.0.0",
+        "version": "3.0.0",
         "title": "Connect CRUD",
         "description": "Connect CRUD",
         "license": {
@@ -17,6 +17,9 @@
             "description": "API for users in the system"
         }
     ],
+    "paths": {
+        "/": {}
+    },
     "schemes": ["http"],
     "consumes": ["application/json"],
     "produces": ["application/json"]

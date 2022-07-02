@@ -1,11 +1,12 @@
-import { publish_ad } from "../../../apps/brand_apis/publish_ads";
-import { c_token_assoc_values } from "../../../controllers/token/token_controller";
+import { get_published_ads } from "../../../apps/brand_apis/get_pub_ads";
 import { Request } from "express";
+import { c_token_assoc_values } from "../../../controllers/token/token_controller";
 import { CREATOR } from "../../../user.types";
 
-export const c_publish_ad_sequence = async (req: Request) => {
-    if (req.headers.authorization && req.headers.authorization.length > 10) {
 
+export const c_get_all_pubished_ad_sequence = async (req: Request) => {
+    if (req.headers.authorization && req.headers.authorization.length > 10) { 
+        
         let token = req.headers.authorization?.split(" ")[1];
 
         let token_assoc_status = await c_token_assoc_values(token);
@@ -33,26 +34,15 @@ export const c_publish_ad_sequence = async (req: Request) => {
             }
         }
 
-        let advert_name = req.body.advert_name;
-        let advert_description = req.body.advert_description;
-
-        console.log(advert_name, advert_description);
-        
         // @ts-ignore
         let brand_id = token_assoc_status.id_brand;
-        console.log(brand_id);
+        let published_ads_resp = await get_published_ads(brand_id);
 
-        return await c_publish_ads(advert_name, advert_description, brand_id);
-    } 
-    // no auth token
+        return published_ads_resp;
+
+    }
     return {
         status: 400,
         message: "Not an auth token"
-    };
-    
-}
-
-export const c_publish_ads = 
-    async (advert_name: string, advert_description: string, brand_id: number) => {
-    return await publish_ad(advert_name, advert_description, brand_id);
+    }
 }

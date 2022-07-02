@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.c_publish_ads = exports.c_publish_ad_sequence = void 0;
-const publish_ads_1 = require("../../../apps/brand_apis/publish_ads");
+exports.c_get_all_pubished_ad_sequence = void 0;
+const get_pub_ads_1 = require("../../../apps/brand_apis/get_pub_ads");
 const token_controller_1 = require("../../../controllers/token/token_controller");
 const user_types_1 = require("../../../user.types");
-const c_publish_ad_sequence = (req) => __awaiter(void 0, void 0, void 0, function* () {
+const c_get_all_pubished_ad_sequence = (req) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     if (req.headers.authorization && req.headers.authorization.length > 10) {
         let token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
@@ -37,22 +37,14 @@ const c_publish_ad_sequence = (req) => __awaiter(void 0, void 0, void 0, functio
                 message: "user is not brand"
             };
         }
-        let advert_name = req.body.advert_name;
-        let advert_description = req.body.advert_description;
-        console.log(advert_name, advert_description);
         // @ts-ignore
         let brand_id = token_assoc_status.id_brand;
-        console.log(brand_id);
-        return yield (0, exports.c_publish_ads)(advert_name, advert_description, brand_id);
+        let published_ads_resp = yield (0, get_pub_ads_1.get_published_ads)(brand_id);
+        return published_ads_resp;
     }
-    // no auth token
     return {
         status: 400,
         message: "Not an auth token"
     };
 });
-exports.c_publish_ad_sequence = c_publish_ad_sequence;
-const c_publish_ads = (advert_name, advert_description, brand_id) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield (0, publish_ads_1.publish_ad)(advert_name, advert_description, brand_id);
-});
-exports.c_publish_ads = c_publish_ads;
+exports.c_get_all_pubished_ad_sequence = c_get_all_pubished_ad_sequence;

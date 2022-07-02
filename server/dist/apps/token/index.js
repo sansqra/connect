@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.delete_token = exports.create_token = exports.token_search = void 0;
 const base_imports_1 = require("../../base_imports");
 const crypto_1 = __importDefault(require("crypto"));
-const user_types_1 = require("../../controllers/user.types");
+const user_types_1 = require("../../user.types");
 // Search for token to prevent calling the Auth APIs
 const token_search = (token_value) => __awaiter(void 0, void 0, void 0, function* () {
     let token_result = yield base_imports_1.prisma_client.token.findFirst({

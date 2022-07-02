@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.CREATOR = exports.BRAND = void 0;
 // User Type types
 exports.BRAND = "br";

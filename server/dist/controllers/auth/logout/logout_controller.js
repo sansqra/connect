@@ -10,6 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.c_logout = void 0;
-const logout_1 = require("../../apps/auth/logout");
+const logout_1 = require("../../../apps/auth/logout");
 const c_logout = (token) => __awaiter(void 0, void 0, void 0, function* () { return yield (0, logout_1.logout)(token); });
 exports.c_logout = c_logout;
