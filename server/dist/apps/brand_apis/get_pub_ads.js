@@ -9,23 +9,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publish_ad = void 0;
+exports.get_published_ads = void 0;
 const base_imports_1 = require("../../base_imports");
-const publish_ad = (advert_name, advert_description, brand_id) => __awaiter(void 0, void 0, void 0, function* () {
-    let publish_ad_resp = yield base_imports_1.prisma_client.adverts.create({
-        data: {
-            advert_name: advert_name,
-            advert_description: advert_description,
-            brands: {
-                connect: {
-                    brand_id: brand_id
-                }
-            }
+const index_types_1 = require("../token/index.types");
+const get_published_ads = (brand_id) => __awaiter(void 0, void 0, void 0, function* () {
+    let get_published_ads_resp = yield base_imports_1.prisma_client.adverts.findMany({
+        where: {
+            brand_id: brand_id
         }
     });
-    console.log(publish_ad_resp);
-    return (publish_ad_resp === null)
-        ? { status: 401, message: "could not publish ad" }
-        : { status: 200, message: "ad created", ad_obj: Object.assign({}, publish_ad_resp) };
+    if (get_published_ads_resp === null ||
+        get_published_ads_resp === undefined) {
+        return {
+            status: "null",
+            "message": "Brand has not published any ads"
+        };
+    }
+    return {
+        status: index_types_1.not_null,
+        message: "brand has published ads",
+        ads: get_published_ads_resp
+    };
 });
-exports.publish_ad = publish_ad;
+exports.get_published_ads = get_published_ads;

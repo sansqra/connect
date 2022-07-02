@@ -9,13 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logout = void 0;
-const token_1 = require("../token");
-const logout = (token_value) => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, token_1.delete_token)(token_value);
-    return {
-        status: 200,
-        message: "user has been logged out"
-    };
+exports.c_login_with_creator = void 0;
+const login_1 = require("../../../apps/auth/login");
+const user_types_1 = require("../../user.types");
+const c_login_with_creator = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
+    let login_with_creator_response = yield (0, login_1.login)(email, password, user_types_1.CREATOR);
+    return login_with_creator_response;
 });
-exports.logout = logout;
+exports.c_login_with_creator = c_login_with_creator;

@@ -1,6 +1,4 @@
 import { prisma_client } from "../../base_imports";
-import { not_null } from "../token/index.types";
-
 
 export const publish_ad = async (
     advert_name: string,
@@ -21,6 +19,6 @@ export const publish_ad = async (
     });
     console.log(publish_ad_resp);
     return (publish_ad_resp === null) 
-            ? { status: null, message: "could not publish ad" } 
-            : { status: not_null, message: "ad created", ad_obj: {...publish_ad_resp}}
+            ? { status: 401, message: "could not publish ad" } 
+            : { status: 200, message: "ad created", ad_obj: {...publish_ad_resp}}
 };

@@ -9,13 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logout = void 0;
-const token_1 = require("../token");
-const logout = (token_value) => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, token_1.delete_token)(token_value);
-    return {
-        status: 200,
-        message: "user has been logged out"
-    };
+exports.c_publish_ads = void 0;
+const publish_ads_1 = require("../../../apps/brand_apis/publish_ads");
+const c_publish_ads = (advert_name, advert_description, brand_id) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield (0, publish_ads_1.publish_ad)(advert_name, advert_description, brand_id);
 });
-exports.logout = logout;
+exports.c_publish_ads = c_publish_ads;
