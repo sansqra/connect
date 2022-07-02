@@ -52,6 +52,10 @@ const logout_controller_1 = require("./controllers/auth/logout/logout_controller
 // BRAND API imports
 const publish_ads_controller_1 = require("./controllers/brand/ads/publish_ads_controller");
 const get_published_ads_controller_1 = require("./controllers/brand/ads/get_published_ads_controller");
+// CREATOR API imports
+const ad_apply_1 = require("./controllers/creator/ad_apply");
+// COMMON API imports
+const get_all_ads_controller_1 = require("./controllers/common/get_all_ads_controller");
 dotenv_1.default.config();
 // Configuring base
 const app = (0, express_1.default)();
@@ -90,7 +94,22 @@ app.get("/get_all_published_ads", (req, res) => __awaiter(void 0, void 0, void 0
         return;
     }
 }));
-app.get("/get_all_ads", (req, res) => __awaiter(void 0, void 0, void 0, function* () { }));
+// CREATOR APIS
+app.post("/ad_apply", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let resp = yield (0, ad_apply_1.c_creator_ad_apply_sequence)(req);
+    if (resp.status == 400 || resp.status == 401 || resp.status == 200) {
+        res.json(resp);
+        return;
+    }
+}));
+// COMMON APIS
+app.get("/get_all_ads", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let resp = yield (0, get_all_ads_controller_1.c_get_all_ads_sequence)(req);
+    if (resp.status == 400 || resp.status == 401 || resp.status == 200) {
+        res.json(resp);
+        return;
+    }
+}));
 app.listen(port, () => {
     console.log('\x1b[36m%s\x1b[0m', "Server listening @ localhost:" + port);
 });

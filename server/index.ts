@@ -22,6 +22,12 @@ import { c_logout } from "./controllers/auth/logout/logout_controller";
 import { c_publish_ad_sequence } from "./controllers/brand/ads/publish_ads_controller";
 import { c_get_all_pubished_ad_sequence } from "./controllers/brand/ads/get_published_ads_controller";
 
+// CREATOR API imports
+import { c_creator_ad_apply_sequence } from "./controllers/creator/ad_apply";
+
+// COMMON API imports
+import { c_get_all_ads_sequence } from "./controllers/common/get_all_ads_controller";
+
 
 dotenv.config();
 
@@ -86,7 +92,25 @@ app.get("/get_all_published_ads", async (req: Request, res: Response) => {
    }
 });
 
-app.get("/get_all_ads", async (req: Request, res: Response) => {});
+// CREATOR APIS
+app.post("/ad_apply", async (req: Request, res: Response) => {
+    let resp = await c_creator_ad_apply_sequence(req);
+    if (resp.status == 400 || resp.status == 401 || resp.status == 200) {
+        res.json(resp);
+        return;
+   }
+});
+
+
+// COMMON APIS
+app.get("/get_all_ads", async (req: Request, res: Response) => {
+    let resp = await c_get_all_ads_sequence(req);
+
+    if (resp.status == 400 || resp.status == 401 || resp.status == 200) {
+        res.json(resp);
+        return;
+    }
+});
 
 app.listen(port, () => {
     console.log('\x1b[36m%s\x1b[0m', "Server listening @ localhost:" + port);

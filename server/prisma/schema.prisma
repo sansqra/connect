@@ -8,11 +8,12 @@ datasource db {
 }
 
 model adverts {
-  advert_id          Int    @id @unique(map: "advert_id_UNIQUE") @default(autoincrement()) @db.UnsignedInt
-  advert_name        String @db.VarChar(45)
-  advert_description String @db.VarChar(200)
-  brand_id           Int    @db.UnsignedInt
-  brands             brands @relation(fields: [brand_id], references: [brand_id], onDelete: Cascade, onUpdate: NoAction, map: "brand_id")
+  advert_id          Int               @id @unique(map: "advert_id_UNIQUE") @default(autoincrement()) @db.UnsignedInt
+  advert_name        String            @db.VarChar(45)
+  advert_description String            @db.VarChar(200)
+  brand_id           Int               @db.UnsignedInt
+  brands             brands            @relation(fields: [brand_id], references: [brand_id], onDelete: Cascade, onUpdate: NoAction, map: "brand_id")
+  ad_applications    ad_applications[]
 
   @@index([brand_id], map: "id_brand_idx")
 }
@@ -28,11 +29,12 @@ model brands {
 }
 
 model creators {
-  creator_id          Int     @id @unique(map: "creator_id_UNIQUE") @default(autoincrement()) @db.UnsignedInt
-  creator_name        String  @unique(map: "creator_name_UNIQUE") @db.VarChar(45)
-  creator_email       String  @unique(map: "creator_email_UNIQUE") @db.VarChar(45)
-  creator_password    String  @unique(map: "creator_password_UNIQUE") @db.VarChar(45)
-  creator_description String  @db.VarChar(200)
+  creator_id          Int               @id @unique(map: "creator_id_UNIQUE") @default(autoincrement()) @db.UnsignedInt
+  creator_name        String            @unique(map: "creator_name_UNIQUE") @db.VarChar(45)
+  creator_email       String            @unique(map: "creator_email_UNIQUE") @db.VarChar(45)
+  creator_password    String            @unique(map: "creator_password_UNIQUE") @db.VarChar(45)
+  creator_description String            @db.VarChar(200)
+  ad_applications     ad_applications[]
   token               token[]
 }
 
@@ -46,5 +48,16 @@ model token {
   creators    creators? @relation(fields: [id_creator], references: [creator_id], onDelete: NoAction, onUpdate: NoAction, map: "id_creator")
 
   @@index([id_brand], map: "id_brand_idx")
+  @@index([id_creator], map: "id_creator_idx")
+}
+
+model ad_applications {
+  application_id Int      @id @unique(map: "application_id_UNIQUE") @default(autoincrement()) @db.UnsignedInt
+  id_advert      Int      @db.UnsignedInt
+  id_creator     Int      @db.UnsignedInt
+  adverts        adverts  @relation(fields: [id_advert], references: [advert_id], onDelete: Cascade, onUpdate: NoAction, map: "id_advertt")
+  creators       creators @relation(fields: [id_creator], references: [creator_id], onDelete: Cascade, onUpdate: NoAction, map: "id_creatorr")
+
+  @@index([id_advert], map: "id_advert_idx")
   @@index([id_creator], map: "id_creator_idx")
 }
