@@ -66,7 +66,7 @@ app.post("/creator_login", async (req: Request, res: Response) =>
 // Route to logout | Token in Header
 app.get("/logout", async (req: Request, res: Response) => {
     res.json(await c_logout(req));
-}
+});
 
 
 // BRAND APIS
@@ -79,9 +79,8 @@ app.post("/brand_publish_ads", async (req: Request, res: Response) => {
    if (resp.status == 400 || resp.status == 401 || resp.status == 200) {
         res.json(resp);
         return;
-   }
+   };
 });
-
 
 // API for brand to see all their published ads
 app.get("/get_all_published_ads", async (req: Request, res: Response) => {
