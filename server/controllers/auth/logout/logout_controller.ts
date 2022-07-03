@@ -1,3 +1,8 @@
 import { logout } from "../../../apps/auth/logout";
 
-export const c_logout = async (token: string) => await logout(token);
+import { Request } from "express";
+
+export const c_logout = async (req: Request) => {
+    // not the right API
+    await logout(req.headers.authorization!.split(" ")[1]);
+}

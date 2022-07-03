@@ -73,11 +73,15 @@ app.get("/", (req, res) => {
 // -- AUTH ROUTES --
 // Route to Brand_Login
 app.post("/brand_login", (req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.json(yield (0, brand_login_controller_1.c_login_with_brand)(req.body.email, req.body.password)); }));
-app.post("/brand_login", (req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.json(yield (0, brand_login_controller_1.c_login_with_brand)(req.body.email, req.body.password)); }));
 // Route to Creator_login
 app.post("/creator_login", (req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.json(yield (0, creator_login_controller_1.c_login_with_creator)(req.body.email, req.body.password)); }));
 // Route to logout | Token in Header
-app.post("/logout", (req, res) => __awaiter(void 0, void 0, void 0, function* () { var _a; return res.json(yield (0, logout_controller_1.c_logout)((_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1])); }));
+app.get("/logout", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.json(yield (0, logout_controller_1.c_logout)(req));
+})
+// BRAND APIS
+// API for brands to publish Ads
+, 
 // BRAND APIS
 // API for brands to publish Ads
 app.post("/brand_publish_ads", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -86,7 +90,8 @@ app.post("/brand_publish_ads", (req, res) => __awaiter(void 0, void 0, void 0, f
         res.json(resp);
         return;
     }
-}));
+})));
+// API for brand to see all their published ads
 app.get("/get_all_published_ads", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let resp = yield (0, get_published_ads_controller_1.c_get_all_pubished_ad_sequence)(req);
     if (resp.status == 400 || resp.status == 401 || resp.status == 200) {
@@ -94,7 +99,9 @@ app.get("/get_all_published_ads", (req, res) => __awaiter(void 0, void 0, void 0
         return;
     }
 }));
+// API for brands to see all creators on Connect
 // CREATOR APIS
+// API for creators to apply to ads they select
 app.post("/ad_apply", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let resp = yield (0, ad_apply_1.c_creator_ad_apply_sequence)(req);
     if (resp.status == 400 || resp.status == 401 || resp.status == 200) {
@@ -102,7 +109,10 @@ app.post("/ad_apply", (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return;
     }
 }));
+// API for creators to see a particular brand's profile given brand_id (extracted from ad info)
+// API for creator to see their profile details
 // COMMON APIS
+// API for any user_type to see all ads by all brands
 app.get("/get_all_ads", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let resp = yield (0, get_all_ads_controller_1.c_get_all_ads_sequence)(req);
     if (resp.status == 400 || resp.status == 401 || resp.status == 200) {
@@ -110,6 +120,7 @@ app.get("/get_all_ads", (req, res) => __awaiter(void 0, void 0, void 0, function
         return;
     }
 }));
+// API for user of any type to see their profile (user_type extracted from token object)
 app.listen(port, () => {
     console.log('\x1b[36m%s\x1b[0m', "Server listening @ localhost:" + port);
 });

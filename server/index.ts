@@ -57,8 +57,6 @@ app.get("/", (req: Request, res: Response) => {
 app.post("/brand_login", async (req: Request, res: Response) => 
     res.json(await c_login_with_brand(req.body.email, req.body.password)));
 
-app.post("/brand_login", async (req: Request, res: Response) => 
-    res.json(await c_login_with_brand(req.body.email, req.body.password)));
 
 // Route to Creator_login
 app.post("/creator_login", async (req: Request, res: Response) => 
@@ -66,8 +64,9 @@ app.post("/creator_login", async (req: Request, res: Response) =>
 
 
 // Route to logout | Token in Header
-app.post("/logout", async (req: Request, res: Response) => 
-    res.json(await c_logout(req.headers.authorization?.split(" ")[1]!)));
+app.get("/logout", async (req: Request, res: Response) => {
+    res.json(await c_logout(req));
+}
 
 
 // BRAND APIS
@@ -83,6 +82,8 @@ app.post("/brand_publish_ads", async (req: Request, res: Response) => {
    }
 });
 
+
+// API for brand to see all their published ads
 app.get("/get_all_published_ads", async (req: Request, res: Response) => {
     let resp = await c_get_all_pubished_ad_sequence(req);
 
@@ -92,7 +93,11 @@ app.get("/get_all_published_ads", async (req: Request, res: Response) => {
    }
 });
 
+// API for brands to see all creators on Connect
+
 // CREATOR APIS
+
+// API for creators to apply to ads they select
 app.post("/ad_apply", async (req: Request, res: Response) => {
     let resp = await c_creator_ad_apply_sequence(req);
     if (resp.status == 400 || resp.status == 401 || resp.status == 200) {
@@ -101,8 +106,15 @@ app.post("/ad_apply", async (req: Request, res: Response) => {
    }
 });
 
+// API for creators to see a particular brand's profile given brand_id (extracted from ad info)
+
+
+// API for creator to see their profile details
+
 
 // COMMON APIS
+
+// API for any user_type to see all ads by all brands
 app.get("/get_all_ads", async (req: Request, res: Response) => {
     let resp = await c_get_all_ads_sequence(req);
 
@@ -111,6 +123,9 @@ app.get("/get_all_ads", async (req: Request, res: Response) => {
         return;
     }
 });
+
+// API for user of any type to see their profile (user_type extracted from token object)
+
 
 app.listen(port, () => {
     console.log('\x1b[36m%s\x1b[0m', "Server listening @ localhost:" + port);
