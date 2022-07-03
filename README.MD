@@ -1,7 +1,6 @@
 ### Connect: Where Brands & Creators meet
 
 ---
-<br />
 
 #### INFO:
 
