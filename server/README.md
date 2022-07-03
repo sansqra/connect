@@ -11,5 +11,5 @@ npm i
 
 > Run
 ```
-npm run dev
+npm run setup
 ```
