@@ -19,9 +19,9 @@
 
 <br />
 
-> Killing of work of this project and going to think of it as an attempt in learning Node based systems in depth.
+> Killing off work of this project and going to think of it as an attempt in learning Node based systems in depth.
 
-> The work is mind numbing, and too tedious to do.
+> It is too tedious to do as of now (probably because I am trying to always optimise the code)
 
 > PS: Submitting this as is, and resuming my study at category theory and type theory
 
