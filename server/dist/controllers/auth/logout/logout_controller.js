@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.c_logout = void 0;
 const logout_1 = require("../../../apps/auth/logout");
 const c_logout = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    yield (0, logout_1.logout)(token);
+    // not the right API
+    yield (0, logout_1.logout)(req.headers.authorization.split(" ")[1]);
 });
 exports.c_logout = c_logout;
