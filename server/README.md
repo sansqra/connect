@@ -9,7 +9,7 @@
 npm i
 ```
 
-> Setup and Run
+> Setup and Run (only first time)
 ```
 npm run setup
 ```
